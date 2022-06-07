@@ -31,7 +31,7 @@ public class JwtService {
 					.parseClaimsJws(accessToken)
 					.getBody();
 
-			System.out.println("aquiiiiiiiiii");
+			
 			var user = JwtResponse.getUser(claims);
 			if(user == null || user.getId() == null) {
 				throw new AuthenticationException("The user is not valid.");
