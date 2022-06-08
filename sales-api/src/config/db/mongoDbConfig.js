@@ -8,7 +8,7 @@ export function connectMongoDb() {
   });
 
   mongoose.connection.on("connected", function () {
-    console.info("The application connected to MongoDB successfully!.");
+    console.info("The application connected to MongoDB successfully!");
   });
   mongoose.connection.on("error", function () {
     console.error("The application not connected to MongoDB!.");

@@ -38,8 +38,9 @@ export async function connectRabbitMq() {
       if (error) {
         throw error;
       }
+
       channel.assertExchange(topic, "topic", { durable: true });
-      channel.assertQueue(queue, "topic", { durable: true });
+      channel.assertQueue(queue, { durable: true });
       channel.bindQueue(queue, topic, routingKey);
     });
   }

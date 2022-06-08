@@ -1,7 +1,11 @@
 import Order from "../../modules/sales/model/Order.js";
 
 export async function createInitialData() {
-  await Order.collection.drop();
+  let initialData = await Order.find();
+  if (initialData) {
+    await Order.collection.drop();
+  }
+
   await Order.create({
     products: [
       {
@@ -48,7 +52,7 @@ export async function createInitialData() {
     updateAt: new Date(),
   });
 
-  let initialData = await Order.find();
+  initialData = await Order.find();
   console.info(
     `Initial data was created: ${JSON.stringify(initialData, undefined, 4)}`
   );
