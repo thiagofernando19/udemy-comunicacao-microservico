@@ -1,7 +1,9 @@
 import express from "express";
 
-import { connect } from "./src/config/db/mongoDbConfig.js";
+import { connectMongoDb } from "./src/config/db/mongoDbConfig.js";
 import { createInitialData } from "./src/config/db/initialData.js";
+import { connectRabbitMq } from "./src/config/rabbitmq/rabbitConfig.js";
+
 import checkToken from "./src/config/auth/checkToken.js";
 
 const app = express();
@@ -9,12 +11,13 @@ const app = express();
 const env = process.env;
 const PORT = env.PORT || 8082;
 
-connect();
+connectMongoDb();
 createInitialData();
+connectRabbitMq();
 
 app.use(checkToken);
 
-app.get("/api/status", async (req, res) => {
+app.get("/api/status", async (_req, res) => {
   return res.status(200).json({
     service: "Sales-api",
     status: "up",
@@ -22,7 +25,7 @@ app.get("/api/status", async (req, res) => {
   });
 });
 
-app.get("/api/all", async (req, res) => {
+app.get("/api/all", async (_req, res) => {
   return res.status(200).json({
     service: "Sales-api",
     status: "up",
