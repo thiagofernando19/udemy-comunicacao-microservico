@@ -33,4 +33,8 @@ pids
 .yarn/install-state.gz
 .pnp.*
 
-sales-api/yarn.lock
+/package-lock.json
+/yarn.lock
+
+
+
