@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.cursoudemy.productapi.config.exception.SuccessResponse;
+import br.com.cursoudemy.productapi.modules.product.dto.ProductCheckStockRequest;
 import br.com.cursoudemy.productapi.modules.product.dto.ProductRequest;
 import br.com.cursoudemy.productapi.modules.product.dto.ProductResponse;
+import br.com.cursoudemy.productapi.modules.product.dto.ProductSalesResponse;
 import br.com.cursoudemy.productapi.modules.product.service.ProductService;
 
 @RestController
@@ -68,6 +70,17 @@ public class ProductController {
 	@DeleteMapping("{id}")
 	public SuccessResponse delete(@PathVariable Integer id){
 		return productService.delete(id);
+	}
+	
+	@PostMapping("check-stock")
+	public SuccessResponse checkProductsStock(@RequestBody ProductCheckStockRequest request) {
+		return productService.checkProductsStock(request);
+	}
+	
+	
+	@GetMapping("{id}/sales")
+	public ProductSalesResponse findProductSales(@PathVariable Integer id) {
+		return productService.findProductSales(id);
 	}
 	
 }
