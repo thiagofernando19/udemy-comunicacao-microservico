@@ -20,7 +20,7 @@ public class JwtService {
 	private String apiSecret;
 
 	
-	public void validateAuthorization(String token) {
+	public void validateAuthorization(String token) {		
 		var accessToken = extractToken(token);
 		try {
 		

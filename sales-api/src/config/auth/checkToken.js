@@ -3,7 +3,7 @@ import { promisify } from "util";
 import AuthException from "./AuthException";
 
 import { API_SECRET } from "../constants/secrets";
-import { UNAUTHORIZED, INTERVAL_SERVER_ERROR } from "../constants/httpStatus";
+import { UNAUTHORIZED, INTERNAL_SERVER_ERROR } from "../constants/httpStatus";
 
 const bearer = "bearer ";
 const emptySpace = " ";
@@ -24,7 +24,7 @@ export default async (req, res, next) => {
     req.authUser = decoded.authUser;
     return next();
   } catch (err) {
-    const status = err.status ? err.status : INTERVAL_SERVER_ERROR;
+    const status = err.status ? err.status : INTERNAL_SERVER_ERROR;
     console.log(err);
     return res.status(status).json({
       status,

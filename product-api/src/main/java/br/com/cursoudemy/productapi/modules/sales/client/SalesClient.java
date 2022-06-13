@@ -16,7 +16,7 @@ import br.com.cursoudemy.productapi.modules.sales.dto.SalesProductResponse;
 
 public interface SalesClient {
 	
-	@GetMapping("products/{productId}")
+	@GetMapping("/api/orders/product/{productId}")
 	Optional<SalesProductResponse> findSalesByProductId(@PathVariable Integer productId);
 			
 }

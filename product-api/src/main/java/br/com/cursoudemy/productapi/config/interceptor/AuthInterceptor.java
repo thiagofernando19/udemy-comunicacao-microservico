@@ -23,7 +23,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 		if(isOptions(request)) {
 			return true;
 		}
-		
+		 		
 		var authorization = request.getHeader(AUTHORIZATION);
 		jwtService.validateAuthorization(authorization);
 		return true;

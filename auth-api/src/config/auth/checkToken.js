@@ -30,7 +30,7 @@ export default async (req, res, next) => {
     req.authUser = decoded.authUser;
     return next();
   } catch (err) {
-    const status = err.status ? err.status : httpStatus.INTERVAL_SERVER_ERROR;
+    const status = err.status ? err.status : httpStatus.INTERNAL_SERVER_ERROR;
     console.log(err);
     return res.status(status).json({
       status,

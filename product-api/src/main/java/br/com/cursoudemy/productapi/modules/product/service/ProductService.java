@@ -232,6 +232,7 @@ public class ProductService {
 			
 			return ProductSalesResponse.of(product, sales.getSalesIds());
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ValidationException("There was an error trying to get the product's sales.");
 		}
 	}
