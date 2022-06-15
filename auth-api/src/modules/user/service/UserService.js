@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import UserRepository from "../repository/UserRepository";
-import UserException from "../exception/UserException";
-import * as httpStatus from "../../../config/constants/httpStatus";
-import * as secrets from "../../../config/constants/secrets";
+import UserRepository from "../repository/UserRepository.js";
+import UserException from "../exception/UserException.js";
+import * as httpStatus from "../../../config/constants/httpStatus.js";
+import * as secrets from "../../../config/constants/secrets.js";
 class UserService {
   async findByEmail(req) {
     try {

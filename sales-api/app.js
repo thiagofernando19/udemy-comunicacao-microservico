@@ -12,33 +12,34 @@ const app = express();
 
 const env = process.env;
 const PORT = env.PORT || 8082;
+const THREE_MINUTES = 180000;
 
-connectMongoDb();
-createInitialData();
-connectRabbitMq();
+startApplication();
+
+function startApplication() {
+  if (env.NODE_ENV !== CONTAINER_ENV) {
+    console.info("Waiting for RabbitMQ and MongoDB containers to start...");
+    createInitialData();
+    setInterval(() => {
+      connectMongoDb();
+      connectRabbitMq();
+    }, THREE_MINUTES);
+  } else {
+    createInitialData();
+    connectMongoDb();
+    connectRabbitMq();
+  }
+}
 
 app.use(express.json());
+
+app.get("/api/initial-data", (_req, res) => {
+  createInitialData();
+  return res.status(200).json({ message: "Data created." });
+});
+
 app.use(checkToken);
 app.use(orderRoutes);
-
-app.get("/teste", async (_req, res) => {
-  try {
-    sendMessageToProductStockUpdateQueue(
-      {
-        productId: 1001,
-        quantity: 3,
-      },
-      {
-        productId: 1002,
-        quantity: 2,
-      }
-    );
-    return res.status(200).json({ status: 200 });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: true });
-  }
-});
 
 app.get("/api/status", async (_req, res) => {
   return res.status(200).json({
@@ -48,13 +49,6 @@ app.get("/api/status", async (_req, res) => {
   });
 });
 
-app.get("/api/all", async (_req, res) => {
-  return res.status(200).json({
-    service: "Sales-api",
-    status: "up",
-    httpStatus: 200,
-  });
-});
 app.listen(PORT, () => {
   console.info("Server started successfully at port " + PORT);
 });

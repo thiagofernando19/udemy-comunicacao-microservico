@@ -1,4 +1,4 @@
-FROM maven:3.6.3-jdk-11
+FROM maven
 COPY ./. /
 WORKDIR .
 RUN mvn compile clean install -DskipTests
